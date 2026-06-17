@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "posts": "Posts",
+    "tags": "Tags",
+    "profile": "Profile",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "loginTitle": "Sign in to your account",
+    "registerTitle": "Create a new account",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "loginSuccess": "Logged in successfully",
+    "registerSuccess": "Account created successfully",
+    "logoutSuccess": "Logged out successfully"
+  },
+  "posts": {
+    "title": "Title",
+    "content": "Content",
+    "tags": "Tags",
+    "create": "New post",
+    "edit": "Edit post",
+    "delete": "Delete",
+    "allPosts": "All posts",
+    "noPosts": "No posts yet",
+    "confirmDelete": "Are you sure you want to delete this post?",
+    "created": "Post created successfully",
+    "updated": "Post updated successfully",
+    "deleted": "Post deleted successfully",
+    "readMore": "Read more",
+    "backToList": "Back to posts",
+    "selectTags": "Select tags",
+    "titleMinLength": "Title must be at least 3 characters",
+    "contentMinLength": "Content must be at least 10 characters"
+  },
+  "tags": {
+    "title": "Tags",
+    "name": "Tag name",
+    "create": "New tag",
+    "delete": "Delete",
+    "noTags": "No tags yet",
+    "confirmDelete": "Are you sure you want to delete this tag?",
+    "created": "Tag created successfully",
+    "deleted": "Tag deleted successfully",
+    "nameMinLength": "Tag name must be at least 2 characters"
+  },
+  "profile": {
+    "title": "Profile",
+    "email": "Email",
+    "name": "Name",
+    "role": "Role",
+    "memberSince": "Member since"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "confirm": "Confirm",
+    "actions": "Actions",
+    "back": "Back"
+  }
+}
