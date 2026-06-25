@@ -1,32 +1,3 @@
-<script setup lang="ts">
-const { t } = useI18n()
-const { fetchPosts } = usePosts()
-const { fetchTags } = useTags()
-const localePath = useLocalePath()
-
-const page = ref(1)
-const limit = 10
-const total = ref(0)
-
-const { data: posts, refresh, status } = await useAsyncData(
-  'posts',
-  async () => {
-    const result = await fetchPosts({ page: page.value, limit })
-    total.value = result.total
-    return result.data
-  },
-  { watch: [page] },
-)
-
-const { data: tags } = await useAsyncData('all-tags', () => fetchTags())
-
-function tagName(id: string) {
-  return tags.value?.find((t) => t.id === id)?.name ?? id
-}
-
-useHead({ title: t('posts.allPosts') })
-</script>
-
 <template>
   <div>
     <div class="flex items-center justify-between mb-6">
@@ -40,7 +11,10 @@ useHead({ title: t('posts.allPosts') })
       <UIcon name="i-lucide-loader-circle" class="animate-spin text-2xl" />
     </div>
 
-    <div v-else-if="!posts?.length" class="text-center py-12 text-(--ui-text-muted)">
+    <div
+      v-else-if="!posts?.length"
+      class="text-center py-12 text-(--ui-text-muted)"
+    >
       {{ t('posts.noPosts') }}
     </div>
 
@@ -58,7 +32,12 @@ useHead({ title: t('posts.allPosts') })
               {{ post.content }}
             </p>
             <div v-if="post.tagIds?.length" class="flex gap-1.5 mt-3">
-              <UBadge v-for="tagId in post.tagIds" :key="tagId" variant="subtle" size="sm">
+              <UBadge
+                v-for="tagId in post.tagIds"
+                :key="tagId"
+                variant="subtle"
+                size="sm"
+              >
                 {{ tagName(tagId) }}
               </UBadge>
             </div>
@@ -72,3 +51,33 @@ useHead({ title: t('posts.allPosts') })
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+const { t } = useI18n()
+const { fetchPosts } = usePosts()
+const { fetchTags } = useTags()
+const localePath = useLocalePath()
+
+const page = ref(1)
+const limit = 10
+const total = ref(0)
+
+const { data: posts, status } = await useAsyncData(
+  'posts',
+  async () => {
+    const result = await fetchPosts({ page: page.value, limit })
+    total.value = result.total
+
+    return result.data
+  },
+  { watch: [page] },
+)
+
+const { data: tags } = await useAsyncData('all-tags', () => fetchTags())
+
+function tagName(id: string) {
+  return tags.value?.find((t) => t.id === id)?.name ?? id
+}
+
+useHead({ title: t('posts.allPosts') })
+</script>

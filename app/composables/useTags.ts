@@ -1,4 +1,4 @@
-import type { Tag, CreateTagDto } from '~/types/api'
+import type { Tag, CreateTagDto } from '@/types/api'
 
 export function useTags() {
   const { api } = useApi()
@@ -19,5 +19,10 @@ export function useTags() {
     return api<{ success: boolean }>(`/tags/${id}`, { method: 'DELETE' })
   }
 
-  return { fetchTags, fetchTag, createTag, deleteTag }
+  return {
+    fetchTags,
+    fetchTag,
+    createTag,
+    deleteTag,
+  }
 }

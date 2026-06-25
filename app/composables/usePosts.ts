@@ -1,12 +1,25 @@
-import type { Post, CreatePostDto, UpdatePostDto, PaginationParams, PaginatedPosts } from '~/types/api'
+import type {
+  Post,
+  CreatePostDto,
+  UpdatePostDto,
+  PaginationParams,
+  PaginatedPosts,
+} from '@/types/api'
 
 export function usePosts() {
   const { api } = useApi()
 
   function fetchPosts(params?: PaginationParams) {
     const query = new URLSearchParams()
-    if (params?.page) query.set('page', String(params.page))
-    if (params?.limit) query.set('limit', String(params.limit))
+
+    if (params?.page) {
+      query.set('page', String(params.page))
+    }
+
+    if (params?.limit) {
+      query.set('limit', String(params.limit))
+    }
+
     const qs = query.toString()
     return api<PaginatedPosts>(`/posts${qs ? `?${qs}` : ''}`)
   }
@@ -27,5 +40,11 @@ export function usePosts() {
     return api<{ success: boolean }>(`/posts/${id}`, { method: 'DELETE' })
   }
 
-  return { fetchPosts, fetchPost, createPost, updatePost, deletePost }
+  return {
+    fetchPosts,
+    fetchPost,
+    createPost,
+    updatePost,
+    deletePost,
+  }
 }

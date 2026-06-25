@@ -1,4 +1,4 @@
-import type { User, LoginDto, RegisterDto } from '~/types/api'
+import type { User, LoginDto, RegisterDto } from '@/types/api'
 
 let authInitPromise: Promise<void> | null = null
 
@@ -9,7 +9,9 @@ export function useAuth() {
   const isInitialized = useState('auth:initialized', () => false)
   const isHydrated = useState('auth:hydrated', () => false)
   const isAuthenticated = computed(() => !!accessToken.value)
-  const showAuthenticated = computed(() => isHydrated.value && isAuthenticated.value)
+  const showAuthenticated = computed(
+    () => isHydrated.value && isAuthenticated.value,
+  )
 
   function markInitialized() {
     isInitialized.value = true
@@ -66,7 +68,9 @@ export function useAuth() {
         method: 'POST',
         baseURL: config.public.apiBase as string,
         credentials: 'include',
-        headers: accessToken.value ? { Authorization: `Bearer ${accessToken.value}` } : {},
+        headers: accessToken.value
+          ? { Authorization: `Bearer ${accessToken.value}` }
+          : {},
       })
     } finally {
       clearAuth()

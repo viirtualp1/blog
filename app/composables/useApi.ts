@@ -1,10 +1,13 @@
-import type { ApiError } from '~/types/api'
+import type { ApiError } from '@/types/api'
 
 export function useApi() {
   const config = useRuntimeConfig()
   const auth = useAuth()
 
-  async function api<T>(url: string, options: Parameters<typeof $fetch>[1] = {}): Promise<T> {
+  async function api<T>(
+    url: string,
+    options: Parameters<typeof $fetch>[1] = {},
+  ): Promise<T> {
     const headers: Record<string, string> = {}
 
     if (auth.accessToken.value) {

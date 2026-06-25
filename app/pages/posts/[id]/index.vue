@@ -1,41 +1,3 @@
-<script setup lang="ts">
-const { t } = useI18n()
-const route = useRoute()
-const { fetchPost, deletePost } = usePosts()
-const { fetchTags } = useTags()
-const { showAuthenticated } = useAuth()
-const toast = useToast()
-const localePath = useLocalePath()
-
-const postId = route.params.id as string
-
-const { data: post, status } = await useAsyncData(`post-${postId}`, () => fetchPost(postId))
-const { data: tags } = await useAsyncData('all-tags', () => fetchTags())
-
-function tagName(id: string) {
-  return tags.value?.find((t) => t.id === id)?.name ?? id
-}
-
-const showDeleteModal = ref(false)
-const deleting = ref(false)
-
-async function handleDelete() {
-  deleting.value = true
-  try {
-    await deletePost(postId)
-    toast.add({ title: t('posts.deleted'), color: 'success' })
-    await navigateTo(localePath('/'))
-  } catch {
-    toast.add({ title: t('common.error'), color: 'error' })
-  } finally {
-    deleting.value = false
-    showDeleteModal.value = false
-  }
-}
-
-useHead({ title: computed(() => post.value?.title ?? '') })
-</script>
-
 <template>
   <div>
     <div v-if="status === 'pending'" class="flex justify-center py-12">
@@ -44,7 +6,11 @@ useHead({ title: computed(() => post.value?.title ?? '') })
 
     <template v-else-if="post">
       <div class="mb-6">
-        <UButton :to="localePath('/')" variant="ghost" icon="i-lucide-arrow-left">
+        <UButton
+          :to="localePath('/')"
+          variant="ghost"
+          icon="i-lucide-arrow-left"
+        >
           {{ t('posts.backToList') }}
         </UButton>
       </div>
@@ -72,7 +38,12 @@ useHead({ title: computed(() => post.value?.title ?? '') })
         </div>
 
         <div v-if="post.tagIds?.length" class="flex gap-1.5 mb-4">
-          <UBadge v-for="tagId in post.tagIds" :key="tagId" variant="subtle" size="sm">
+          <UBadge
+            v-for="tagId in post.tagIds"
+            :key="tagId"
+            variant="subtle"
+            size="sm"
+          >
             {{ tagName(tagId) }}
           </UBadge>
         </div>
@@ -85,10 +56,18 @@ useHead({ title: computed(() => post.value?.title ?? '') })
       <UModal v-model:open="showDeleteModal">
         <template #content>
           <div class="p-6">
-            <h3 class="text-lg font-semibold mb-2">{{ t('common.confirm') }}</h3>
-            <p class="text-(--ui-text-muted) mb-6">{{ t('posts.confirmDelete') }}</p>
+            <h3 class="text-lg font-semibold mb-2">
+              {{ t('common.confirm') }}
+            </h3>
+            <p class="text-(--ui-text-muted) mb-6">
+              {{ t('posts.confirmDelete') }}
+            </p>
             <div class="flex justify-end gap-2">
-              <UButton variant="ghost" :label="t('common.cancel')" @click="showDeleteModal = false" />
+              <UButton
+                variant="ghost"
+                :label="t('common.cancel')"
+                @click="showDeleteModal = false"
+              />
               <UButton
                 color="error"
                 :label="t('common.delete')"
@@ -102,3 +81,44 @@ useHead({ title: computed(() => post.value?.title ?? '') })
     </template>
   </div>
 </template>
+
+<script setup lang="ts">
+const { t } = useI18n()
+const route = useRoute()
+const { fetchPost, deletePost } = usePosts()
+const { fetchTags } = useTags()
+const { showAuthenticated } = useAuth()
+const toast = useToast()
+const localePath = useLocalePath()
+
+const postId = route.params.id as string
+
+const { data: post, status } = await useAsyncData(`post-${postId}`, () =>
+  fetchPost(postId),
+)
+const { data: tags } = await useAsyncData('all-tags', () => fetchTags())
+
+function tagName(id: string) {
+  return tags.value?.find((t) => t.id === id)?.name ?? id
+}
+
+const showDeleteModal = ref(false)
+const deleting = ref(false)
+
+async function handleDelete() {
+  deleting.value = true
+
+  try {
+    await deletePost(postId)
+    toast.add({ title: t('posts.deleted'), color: 'success' })
+    await navigateTo(localePath('/'))
+  } catch {
+    toast.add({ title: t('common.error'), color: 'error' })
+  } finally {
+    deleting.value = false
+    showDeleteModal.value = false
+  }
+}
+
+useHead({ title: computed(() => post.value?.title ?? '') })
+</script>
