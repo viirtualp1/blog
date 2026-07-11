@@ -1,5 +1,5 @@
 <template>
-  <USelect
+  <u-select
     v-model="selected"
     :items="items"
     value-key="value"

@@ -1,20 +1,20 @@
 <template>
   <form @submit.prevent="handleSubmit" class="space-y-4">
-    <UFormField :label="t('posts.title')" :error="titleError">
-      <UInput v-model="title" :placeholder="t('posts.title')" class="w-full" />
-    </UFormField>
+    <u-form-field :label="t('posts.title')" :error="titleError">
+      <u-input v-model="title" :placeholder="t('posts.title')" class="w-full" />
+    </u-form-field>
 
-    <UFormField :label="t('posts.content')" :error="contentError">
-      <UTextarea
+    <u-form-field :label="t('posts.content')" :error="contentError">
+      <u-textarea
         v-model="content"
         :placeholder="t('posts.content')"
         :rows="8"
         class="w-full"
       />
-    </UFormField>
+    </u-form-field>
 
-    <UFormField :label="t('posts.tags')">
-      <USelectMenu
+    <u-form-field :label="t('posts.tags')">
+      <u-select-menu
         v-model="selectedTagIds"
         :items="tagItems"
         multiple
@@ -22,12 +22,12 @@
         :placeholder="t('posts.selectTags')"
         class="w-full"
       />
-    </UFormField>
+    </u-form-field>
 
     <div class="flex justify-end gap-2 pt-4">
-      <UButton type="submit" :disabled="!isValid" :loading="loading">
+      <u-button type="submit" :disabled="!isValid" :loading="loading">
         {{ t('common.save') }}
-      </UButton>
+      </u-button>
     </div>
   </form>
 </template>
@@ -58,14 +58,6 @@ const tagItems = computed(() => {
   return props.tags.map((tag) => ({ label: tag.name, value: tag.id }))
 })
 
-function handleSubmit() {
-  emit('submit', {
-    title: title.value,
-    content: content.value,
-    tagIds: selectedTagIds.value,
-  })
-}
-
 const titleError = computed(() => {
   if (title.value.length > 0 && title.value.length < 3) {
     return t('posts.titleMinLength')
@@ -85,6 +77,14 @@ const contentError = computed(() => {
 const isValid = computed(() => {
   return title.value.length >= 3 && content.value.length >= 10
 })
+
+function handleSubmit() {
+  emit('submit', {
+    title: title.value,
+    content: content.value,
+    tagIds: selectedTagIds.value,
+  })
+}
 
 watch(
   () => props.post,

@@ -94,7 +94,10 @@ export function useAuth() {
   }
 
   function waitUntilReady() {
-    if (isInitialized.value) return Promise.resolve()
+    if (isInitialized.value) {
+      return Promise.resolve()
+    }
+
     authInitPromise ??= initAuth()
     return authInitPromise
   }

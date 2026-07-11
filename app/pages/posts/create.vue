@@ -30,16 +30,16 @@ useHead({ title: t('posts.create') })
 <template>
   <div>
     <div class="mb-6">
-      <UButton :to="localePath('/')" variant="ghost" icon="i-lucide-arrow-left">
+      <u-button :to="localePath('/')" variant="ghost" icon="i-lucide-arrow-left">
         {{ t('posts.backToList') }}
-      </UButton>
+      </u-button>
     </div>
 
-    <UCard>
+    <u-card>
       <template #header>
         <h1 class="text-xl font-bold">{{ t('posts.create') }}</h1>
       </template>
-      <PostForm :tags="tags ?? []" :loading="loading" @submit="handleSubmit" />
-    </UCard>
+      <post-form :tags="tags ?? []" :loading="loading" @submit="handleSubmit" />
+    </u-card>
   </div>
 </template>

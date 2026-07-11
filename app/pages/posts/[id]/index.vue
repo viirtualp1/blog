@@ -1,32 +1,32 @@
 <template>
   <div>
     <div v-if="status === 'pending'" class="flex justify-center py-12">
-      <UIcon name="i-lucide-loader-circle" class="animate-spin text-2xl" />
+      <u-icon name="i-lucide-loader-circle" class="animate-spin text-2xl" />
     </div>
 
     <template v-else-if="post">
       <div class="mb-6">
-        <UButton
+        <u-button
           :to="localePath('/')"
           variant="ghost"
           icon="i-lucide-arrow-left"
         >
           {{ t('posts.backToList') }}
-        </UButton>
+        </u-button>
       </div>
 
-      <UCard>
+      <u-card>
         <div class="flex items-start justify-between mb-4">
           <h1 class="text-2xl font-bold">{{ post.title }}</h1>
-          <ClientOnly>
+          <client-only>
             <div v-if="showAuthenticated" class="flex gap-2 shrink-0">
-              <UButton
+              <u-button
                 :to="localePath(`/posts/${post.id}/edit`)"
                 variant="soft"
                 icon="i-lucide-pencil"
                 :label="t('posts.edit')"
               />
-              <UButton
+              <u-button
                 variant="soft"
                 color="error"
                 icon="i-lucide-trash-2"
@@ -34,26 +34,26 @@
                 @click="showDeleteModal = true"
               />
             </div>
-          </ClientOnly>
+          </client-only>
         </div>
 
         <div v-if="post.tagIds?.length" class="flex gap-1.5 mb-4">
-          <UBadge
+          <u-badge
             v-for="tagId in post.tagIds"
             :key="tagId"
             variant="subtle"
             size="sm"
           >
             {{ tagName(tagId) }}
-          </UBadge>
+          </u-badge>
         </div>
 
         <div class="prose max-w-none whitespace-pre-wrap">
           {{ post.content }}
         </div>
-      </UCard>
+      </u-card>
 
-      <UModal v-model:open="showDeleteModal">
+      <u-modal v-model:open="showDeleteModal">
         <template #content>
           <div class="p-6">
             <h3 class="text-lg font-semibold mb-2">
@@ -63,12 +63,12 @@
               {{ t('posts.confirmDelete') }}
             </p>
             <div class="flex justify-end gap-2">
-              <UButton
+              <u-button
                 variant="ghost"
                 :label="t('common.cancel')"
                 @click="showDeleteModal = false"
               />
-              <UButton
+              <u-button
                 color="error"
                 :label="t('common.delete')"
                 :loading="deleting"
@@ -77,7 +77,7 @@
             </div>
           </div>
         </template>
-      </UModal>
+      </u-modal>
     </template>
   </div>
 </template>

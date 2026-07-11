@@ -1,31 +1,31 @@
 <template>
   <div>
     <div class="mb-6">
-      <UButton
+      <u-button
         :to="localePath(`/posts/${postId}`)"
         variant="ghost"
         icon="i-lucide-arrow-left"
       >
         {{ t('common.back') }}
-      </UButton>
+      </u-button>
     </div>
 
     <div v-if="postStatus === 'pending'" class="flex justify-center py-12">
-      <UIcon name="i-lucide-loader-circle" class="animate-spin text-2xl" />
+      <u-icon name="i-lucide-loader-circle" class="animate-spin text-2xl" />
     </div>
 
-    <UCard v-else-if="post">
+    <u-card v-else-if="post">
       <template #header>
         <h1 class="text-xl font-bold">{{ t('posts.edit') }}</h1>
       </template>
-      <PostForm
+      <post-form
         :key="post.id"
         :post="post"
         :tags="tags ?? []"
         :loading="loading"
         @submit="handleSubmit"
       />
-    </UCard>
+    </u-card>
   </div>
 </template>
 

@@ -2,13 +2,13 @@
   <div>
     <div class="flex items-center justify-between mb-6">
       <h1 class="text-2xl font-bold">{{ t('tags.title') }}</h1>
-      <UButton icon="i-lucide-plus" @click="showCreateModal = true">
+      <u-button icon="i-lucide-plus" @click="showCreateModal = true">
         {{ t('tags.create') }}
-      </UButton>
+      </u-button>
     </div>
 
     <div v-if="status === 'pending'" class="flex justify-center py-12">
-      <UIcon name="i-lucide-loader-circle" class="animate-spin text-2xl" />
+      <u-icon name="i-lucide-loader-circle" class="animate-spin text-2xl" />
     </div>
 
     <div
@@ -19,10 +19,10 @@
     </div>
 
     <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-      <UCard v-for="tag in tags" :key="tag.id">
+      <u-card v-for="tag in tags" :key="tag.id">
         <div class="flex items-center justify-between">
           <span class="font-medium">{{ tag.name }}</span>
-          <UButton
+          <u-button
             variant="ghost"
             color="error"
             icon="i-lucide-trash-2"
@@ -30,29 +30,29 @@
             @click="confirmDelete(tag.id)"
           />
         </div>
-      </UCard>
+      </u-card>
     </div>
 
     <!-- Create Modal -->
-    <UModal v-model:open="showCreateModal">
+    <u-modal v-model:open="showCreateModal">
       <template #content>
         <div class="p-6">
           <h3 class="text-lg font-semibold mb-4">{{ t('tags.create') }}</h3>
           <form @submit.prevent="handleCreate">
-            <UFormField :label="t('tags.name')" :error="nameError">
-              <UInput
+            <u-form-field :label="t('tags.name')" :error="nameError">
+              <u-input
                 v-model="newTagName"
                 :placeholder="t('tags.name')"
                 class="w-full"
               />
-            </UFormField>
+            </u-form-field>
             <div class="flex justify-end gap-2 mt-4">
-              <UButton
+              <u-button
                 variant="ghost"
                 :label="t('common.cancel')"
                 @click="showCreateModal = false"
               />
-              <UButton
+              <u-button
                 type="submit"
                 :disabled="newTagName.length < 2"
                 :loading="creating"
@@ -62,10 +62,10 @@
           </form>
         </div>
       </template>
-    </UModal>
+    </u-modal>
 
     <!-- Delete Modal -->
-    <UModal v-model:open="showDeleteModal">
+    <u-modal v-model:open="showDeleteModal">
       <template #content>
         <div class="p-6">
           <h3 class="text-lg font-semibold mb-2">{{ t('common.confirm') }}</h3>
@@ -73,12 +73,12 @@
             {{ t('tags.confirmDelete') }}
           </p>
           <div class="flex justify-end gap-2">
-            <UButton
+            <u-button
               variant="ghost"
               :label="t('common.cancel')"
               @click="showDeleteModal = false"
             />
-            <UButton
+            <u-button
               color="error"
               :label="t('common.delete')"
               :loading="deleting"
@@ -87,7 +87,7 @@
           </div>
         </div>
       </template>
-    </UModal>
+    </u-modal>
   </div>
 </template>
 

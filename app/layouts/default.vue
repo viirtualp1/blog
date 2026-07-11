@@ -1,27 +1,27 @@
 <template>
   <div class="min-h-screen bg-(--ui-bg)">
     <header class="border-b border-(--ui-border)">
-      <UContainer>
+      <u-container>
         <nav class="flex items-center justify-between h-16">
           <div class="flex items-center gap-6">
-            <ULink
+            <u-link
               :to="localePath('/')"
               class="text-xl font-bold text-(--ui-text-highlighted)"
             >
               Blog
-            </ULink>
+            </u-link>
             <div class="flex items-center gap-4">
-              <UButton
+              <u-button
                 :to="localePath('/')"
                 variant="ghost"
                 :label="t('nav.posts')"
               />
-              <UButton
+              <u-button
                 :to="localePath('/tags')"
                 variant="ghost"
                 :label="t('nav.tags')"
               />
-              <UButton
+              <u-button
                 v-if="showAuthenticated"
                 :to="localePath('/profile')"
                 variant="ghost"
@@ -30,9 +30,9 @@
             </div>
           </div>
           <div class="flex items-center gap-3">
-            <LangSwitcher />
+            <lang-switcher />
             <template v-if="showAuthenticated">
-              <UButton
+              <u-button
                 variant="soft"
                 color="error"
                 :label="t('nav.logout')"
@@ -40,25 +40,25 @@
               />
             </template>
             <template v-else>
-              <UButton
+              <u-button
                 :to="localePath('/login')"
                 variant="soft"
                 :label="t('nav.login')"
               />
-              <UButton
+              <u-button
                 :to="localePath('/register')"
                 :label="t('nav.register')"
               />
             </template>
           </div>
         </nav>
-      </UContainer>
+      </u-container>
     </header>
 
     <main class="py-8">
-      <UContainer>
+      <u-container>
         <slot />
-      </UContainer>
+      </u-container>
     </main>
   </div>
 </template>

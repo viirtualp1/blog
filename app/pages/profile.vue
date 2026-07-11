@@ -2,23 +2,23 @@
   <div class="max-w-lg mx-auto mt-8">
     <h1 class="text-2xl font-bold mb-6">{{ t('profile.title') }}</h1>
 
-    <UCard v-if="user">
+    <u-card v-if="user">
       <div class="space-y-4">
         <div class="flex justify-between">
           <span class="text-(--ui-text-muted)">{{ t('profile.name') }}</span>
           <span class="font-medium">{{ user.name }}</span>
         </div>
-        <USeparator />
+        <u-separator />
         <div class="flex justify-between">
           <span class="text-(--ui-text-muted)">{{ t('profile.email') }}</span>
           <span class="font-medium">{{ user.email }}</span>
         </div>
-        <USeparator />
+        <u-separator />
         <div class="flex justify-between">
           <span class="text-(--ui-text-muted)">{{ t('profile.role') }}</span>
-          <UBadge variant="subtle">{{ user.role }}</UBadge>
+          <u-badge variant="subtle">{{ user.role }}</u-badge>
         </div>
-        <USeparator />
+        <u-separator />
         <div class="flex justify-between">
           <span class="text-(--ui-text-muted)">{{
             t('profile.memberSince')
@@ -32,7 +32,7 @@
           </span>
         </div>
       </div>
-    </UCard>
+    </u-card>
   </div>
 </template>
 
